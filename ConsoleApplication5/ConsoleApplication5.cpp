@@ -42,9 +42,19 @@ Node* insertNode(Node* root, int data)
 // Function to search a given key in a given BST
 Node* searchNode(Node* root, int key)
 {
+    // Base case: root is null or key is present at root
+    if (root == nullptr || root->data == key) {
+        return root;
+    }
 
+    // Key is smaller than root's key, search in the left subtree
+    if (key < root->data) {
+        return searchNode(root->left, key);
+    }
+
+    // Key is larger than root's key, search in the right subtree
+    return searchNode(root->right, key);
 }
-
 
 void printTreeStructure(Node* node, int indent = 0, char prefix = 'R') {
     if (node == nullptr) return;
@@ -71,7 +81,6 @@ void printTreeStructure(Node* node, int indent = 0, char prefix = 'R') {
     }
 }
 
-
 // Main function to demonstrate the operations of BST
 int main()
 {
@@ -89,12 +98,9 @@ int main()
 
     // Print the inorder traversal of a BST
     cout << "Structure of the given Binary Search "
-        "Tree is: ";
+        "Tree is: " << endl;
     printTreeStructure(root);
     cout << endl;
-
-
-
 
     // Search a key in BST
     Node* found = searchNode(root, 25);
